@@ -1,0 +1,38 @@
+{
+  "name": "svcs",
+  "version": "0.1.0",
+  "description": "Micro services for node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wolfeidau/svcs.git"
+  },
+  "keywords": [
+    "service",
+    "amqp",
+    "queue"
+  ],
+  "author": "Mark Wolfe <mark@wolfe.id.au>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wolfeidau/svcs/issues"
+  },
+  "homepage": "https://github.com/wolfeidau/svcs",
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.16.2",
+    "chai-as-promised": "~4.1.0"
+  },
+  "dependencies": {
+    "bunyan": "~0.22.1",
+    "debug": "~0.7.4",
+    "xtend": "~2.1.1",
+    "when": "~2.7.0",
+    "amqplib": "~0.1.1",
+    "houkou": "~0.2.1",
+    "statsd-client": "0.0.15"
+  }
+}
