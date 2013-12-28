@@ -24,7 +24,8 @@ describe('Container', function(){
 
   it('should setup a route and consume', function(done){
 
-    var open = container.route('$gw.*.events', {queue: 'gw_events'}, function(msg){
+    var open = container.route('$test.*.events', {queue: 'test_events'}, function(msg){
+      log('msg', msg);
       msg.ack();
       done();
     });
@@ -32,8 +33,8 @@ describe('Container', function(){
     open.then(function(conn) {
       var ok = conn.createChannel();
       ok = ok.then(function(ch) {
-        ch.assertQueue('queue123');
-        ch.publish('amq.topic', '$gw.123456.events', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
+        ch.assertQueue('test_events');
+        ch.publish('amq.topic', '$test.123456.events', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
       });
       return ok;
     }).then(null, console.warn);
