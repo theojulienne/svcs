@@ -49,20 +49,24 @@ describe('JSON Middleware', function () {
 
     container.use(jsonDecode);
 
-    var open = container.route('$test.*.events.json', {queue: 'test_events_json'}, function (msg) {
+    var open = container.route('$jsontest.*.events', {queue: 'test_events_json'}, function (msg) {
       msg.ack();
       expect(msg).to.have.property('body');
       done();
     });
 
-    open.then(function (conn) {
-      var ok = conn.createChannel();
-      ok = ok.then(function (ch) {
-        ch.assertQueue('test_events_json');
-        ch.publish('amq.topic', '$test.123456.events.json', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
-      });
-      return ok;
-    }).then(null, console.warn);
+    setTimeout(
+      function () {
+
+        open.then(function (conn) {
+          var ok = conn.createChannel();
+          ok = ok.then(function (ch) {
+            ch.assertQueue('test_events_json');
+            ch.publish('amq.topic', '$jsontest.123456.events', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
+          });
+          return ok;
+        }).then(null, console.warn);
+      }, 100);
 
   });
 

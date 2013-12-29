@@ -39,8 +39,6 @@ graphService.connect('$gw.*.events', function handler(err, topic, message, param
 Need to build the following middleware.
 
 * Build middleware for logging messages
-* Add metrics middleware, the idea is to maintain per route counts to start with
-* Encoding\decoding middleware
 
 
 
