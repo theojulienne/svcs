@@ -6,11 +6,13 @@ var debug = require('debug')('event_svcs');
 var container = svcs();
 
 container.use(svcs.json());
-container.use(svcs.topicStats());
+container.use(svcs.stats());
 
-// set up the container
-var open = container.route('$gw.*.events', {queue: 'gw_events'}, function(msg){
-//  msg.logger.debug('msg.body', msg.body);
+container.job(10000, svcs.runtime());
+
+// set up the container, this returns a promise which yields an AMQP connection.
+var open = container.route('$gw.:gwId.events', {queue: 'gw_events'}, function(msg){
+//  msg.logger.debug('msg.params', msg.params);
   msg.ack();
 });
 
@@ -20,7 +22,13 @@ open.then(function(conn) {
   ok = ok.then(function(ch) {
     setInterval(function(){
       ch.publish('amq.topic', '$gw.123456.events', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
-    }, 1000);
+    }, 1);
   });
   return ok;
 }).then(null, console.warn);
+
+/*
+setInterval(function(){
+  global.gc();
+}, 10000)
+*/
