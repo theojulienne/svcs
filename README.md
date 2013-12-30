@@ -54,6 +54,8 @@ container.use(svcs.stats());
 
 # TODO
 
+* Add locals to enable connection pools to be tied in and available to the msg, this probably should be done by a
+ middleware module later.
 * Need to rework configuration and decide where the defaults should live.
 * Need to review jobs as the api is pretty average at the moment.
 * More testing..
