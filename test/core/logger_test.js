@@ -15,7 +15,7 @@ describe('logger', function(){
   });
 
   it('shouldnt explode with a bad winston compat type', function(){
-    logger.log('warn', 'poop', {msg: 'test'});
+    logger.log('poop', 'test', {msg: 'test'});
   });
 
 });
