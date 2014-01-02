@@ -15,6 +15,7 @@ var emptyMsg = {content: new Buffer(''), properties: {contentType: 'application/
 var jsonMsg = {content: new Buffer('{"foo": "bar"}'), properties: {contentType: 'application/json'}};
 var textMsg = {content: new Buffer('Hello world!'), properties: {contentType: 'application/text'}};
 var unknownMsg = {content: new Buffer('Hello world!'), properties: {contentType: undefined}};
+var noContentTypeJsonMsg = {content: new Buffer('{"foo": "bar"}'), properties: {contentType: undefined}};
 
 describe('JSON Middleware', function () {
 
@@ -43,6 +44,11 @@ describe('JSON Middleware', function () {
 
   it('should be resolved with missing contentType and skip decoding', function (done) {
     return expect(jsonDecode(unknownMsg)).to.eventually.not.have.property("body").and.notify(done);
+  });
+
+  it('should be resolved with success if a valid JSON body and ignore content type is set', function (done) {
+    var jsonDecode = json({ignoreContentType: true});
+    return expect(jsonDecode(noContentTypeJsonMsg)).to.eventually.have.property("body").and.notify(done);
   });
 
   it('should setup a route and consume json', function (done) {
