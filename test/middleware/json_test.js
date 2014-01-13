@@ -67,7 +67,6 @@ describe('JSON Middleware', function () {
         open.then(function (conn) {
           var ok = conn.createChannel();
           ok = ok.then(function (ch) {
-            ch.assertQueue('test_events_json');
             ch.publish('amq.topic', '$jsontest.123456.events', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
           });
           return ok;

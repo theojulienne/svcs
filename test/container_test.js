@@ -37,7 +37,6 @@ describe('Container', function () {
         open.then(function (conn) {
           var ok = conn.createChannel();
           ok = ok.then(function (ch) {
-            ch.assertQueue('test_events_params');
             ch.publish('amq.topic', '$test.123456.events.some', new Buffer(JSON.stringify({msg: 'some message'})), {contentType: 'application/json'});
           });
           return ok;
