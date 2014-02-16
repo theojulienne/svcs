@@ -33,6 +33,7 @@
     "when": "~2.7.0",
     "amqplib": "~0.1.1",
     "houkou": "~0.2.1",
-    "statsd-client": "0.0.15"
+    "statsd-client": "0.0.15",
+    "hoek": "~1.4.1"
   }
 }
