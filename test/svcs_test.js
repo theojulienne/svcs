@@ -1,8 +1,8 @@
 'use strict';
 
-var log = require('debug')('test:container')
-  , svcs = require('../index')
-  , expect = require('chai').expect;
+var log = require('debug')('test:container');
+var svcs = require('../index');
+var expect = require('chai').expect;
 
 describe('svcs', function () {
 

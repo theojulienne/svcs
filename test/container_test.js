@@ -25,7 +25,6 @@ describe('Container', function () {
   it('should setup a route and consume', function (done) {
 
     var open = container.route('$test.:thing.events.:then', {queue: 'test_events_params'}, function (msg) {
-      log('msg', msg);
       msg.ack();
       expect(msg.params).to.have.property('thing');
       expect(msg.params.thing).to.equal('123456');
