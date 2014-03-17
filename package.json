@@ -1,6 +1,6 @@
 {
   "name": "svcs",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "AMQP driven micro services for node.",
   "main": "index.js",
   "scripts": {
