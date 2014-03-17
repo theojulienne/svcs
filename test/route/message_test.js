@@ -29,11 +29,11 @@ describe('Message', function(){
 
     var mockMsg = {
       fields: {
-        routingKey: 'test123_test456'
+        routingKey: 'act_test123_test456'
       }
     };
 
-    var baseMsg = new Message({}, ':item_:value');
+    var baseMsg = new Message({}, 'act_:item_:value');
 
     var msg = xtend(baseMsg, mockMsg);
 
