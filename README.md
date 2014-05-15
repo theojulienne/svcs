@@ -22,13 +22,19 @@ var svcs = require('svcs');
 var container = svcs();
 
 // override the default amqpUrl
-container.set('amqpUrl', 'amqp://guest:guest@rabbitmq.example.com:5672');
+var amqpUrl = process.env.AMQP_URL || config.amqp.url;
+
+container.set('amqpUrl', amqpUrl);
+
+function onErr(err) {
+    console.warn('error processing message', err);
+}
 
 // add a route which will process messages for the given routing key
 // the attribute :gatewayId will be replaced with * when passed to bindQueue
-container.route('$gw.:gatewayId.events', {queue: 'gw_events'}, function handler(err, msg){
+container.route('$gw.:gatewayId.events', {queue: 'gw_events', errorHandler: onErr}, function handler(msg){
     var gatewayId = msg.params.gatewayId;
-}
+});
 ```
 
 ## Middleware
