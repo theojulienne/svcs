@@ -75,4 +75,30 @@ describe('JSON Middleware', function () {
 
   });
 
+  it('should setup a route and call error on bad json', function (done) {
+
+    container.use(jsonDecode);
+
+    function onError(err) {
+      expect(err).to.exist;
+      done();
+    }
+
+    var open = container.route('$jsontest.*.events.err', {queue: 'test_events_json_err', errorHandler: onError}, function (msg) {
+    });
+
+    setTimeout(
+      function () {
+
+        open.then(function (conn) {
+          var ok = conn.createChannel();
+          ok = ok.then(function (ch) {
+            ch.publish('amq.topic', '$jsontest.123456.events.err', new Buffer('{msg: "some message"}'), {contentType: 'application/json'});
+          });
+          return ok;
+        }).then(null, console.warn);
+      }, 100);
+
+  });
+
 });
